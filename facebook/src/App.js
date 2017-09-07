@@ -100,7 +100,7 @@ thumbsDown(i){
           <button  onClick={() => this.thumbsDown(i)}>DisLike {comment.thumbsDown} </button>
           <ul>
             <li key={i}>
-            <input type="text" value={this.state.reply}  onChange={ (event) => this.replyHandleChange(event, i)} />
+            <input type="text" value={this.state.text[index].input}  onChange={ (event) => this.replyHandleChange(event, i)} />
               <button onClick={() => this.handleAddreply(i)}> Reply </button>
             </li>
           </ul>
