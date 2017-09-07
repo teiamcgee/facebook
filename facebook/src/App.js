@@ -26,7 +26,7 @@ this.setState({
 replyHandleChange(event, i){
   const CopyofState = Object.assign({}, this.state);
   const comment = CopyofState.text[i];
-  comment.text[i].input = event.target.value
+  comment.input= event.target.value
   this.setState({
     CopyofState,
   })
@@ -51,7 +51,9 @@ handleAddComment = () => {
 
 handleAddreply(i){
   const CopyofState = Object.assign({}, this.state);
+  console.log('state',CopyofState);
   const comment = CopyofState.text[i];
+  console.log('comment', comment);
   if(comment.input  === ""){
     return
   }
@@ -72,12 +74,27 @@ DeleteHandleClick(i){
   this.setState(CopyofState);
 }
 
+replyDeleteHandleClick(i,k){
+  const CopyofState = Object.assign({}, this.state);
+  delete CopyofState.text[i].replies[k];
+  this.setState(CopyofState);
+}
+
 thumbsUp(i){
   const text = this.state.text.slice();
   text[i].thumbsUp++
 
   this.setState({
      text,
+  })
+}
+
+replyThumbsUp(i,k){
+  let state = Object.assign({}, this.state);
+  state.text[i].replies[k].thumbsUp++;
+
+  this.setState({
+     state,
   })
 }
 
@@ -90,6 +107,15 @@ thumbsDown(i){
   })
 }
 
+replyThumbsDown(i,k){
+  let state = Object.assign({}, this.state);
+  state.text[i].replies[k].thumbsDown++;
+
+  this.setState({
+     state,
+  })
+}
+
   render() {
     const addText = this.state.text.map(function(comment,i){
       return (
@@ -97,11 +123,25 @@ thumbsDown(i){
           {comment.message}
           <button onClick={() => this.DeleteHandleClick(i)}>Delete</button>
           <button onClick={() => this.thumbsUp(i)}>Like {comment.thumbsUp} </button>
-          <button  onClick={() => this.thumbsDown(i)}>DisLike {comment.thumbsDown} </button>
+          <button onClick={() => this.thumbsDown(i)}>DisLike {comment.thumbsDown} </button>
           <ul>
             <li key={i}>
-            <input type="text" value={this.state.text[i].input}  onChange={ (event) => this.replyHandleChange(event, i)} />
+            <input type="text" value={comment.input}  onChange={ (event) => this.replyHandleChange(event, i)} />
               <button onClick={() => this.handleAddreply(i)}> Reply </button>
+              <ul>
+                {
+                  comment.replies.map(function(reply, k){
+                    return(
+                      <li key={k}>
+                        {reply.message}
+                        <button onClick={() => this.replyDeleteHandleClick(i,k)}>Delete</button>
+                        <button onClick={() => this.replyThumbsUp(i, k)}>Like {reply.thumbsUp} </button>
+                        <button onClick={() => this.replyThumbsDown(i, k)}>DisLike {reply.thumbsDown} </button>
+                      </li>
+                    )
+                  }, this)
+                }
+              </ul>
             </li>
           </ul>
         </li>
