@@ -26,7 +26,7 @@ this.setState({
 replyHandleChange(event, i){
   const CopyofState = Object.assign({}, this.state);
   const comment = CopyofState.text[i];
-  comment.input = event.target.value
+  comment.text[index].input = event.target.value
   this.setState({
     CopyofState,
   })
