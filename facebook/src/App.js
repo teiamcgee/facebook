@@ -4,7 +4,6 @@ import './App.css';
 const initState = {
   input: "",
   text :[],
-  reply: "",
 }
 
 class App extends Component {
@@ -24,11 +23,14 @@ this.setState({
 })
 }
 
-replyHandleChange(e){
-this.setState({
-  input: e.target.value
-})
-}
+replyHandleChange(event, i){
+  const CopyofState = Object.assign({}, this.state);
+  const comment = CopyofState.text[i];
+  comment.input = event.target.value
+  this.setState({
+    CopyofState,
+  })
+  }
 
 handleAddComment = () => {
   if(this.state.input  === ""){
@@ -96,7 +98,12 @@ thumbsDown(i){
           <button onClick={() => this.DeleteHandleClick(i)}>Delete</button>
           <button onClick={() => this.thumbsUp(i)}>Like {comment.thumbsUp} </button>
           <button  onClick={() => this.thumbsDown(i)}>DisLike {comment.thumbsDown} </button>
-          <input type="text" value={this.state.reply}  onChange={this.replyHandleChange}/><button onClick={() => this.handleAddreply(i)}> Reply </button>
+          <ul>
+            <li key={i}>
+              <input type="text" value={this.state.reply}  onChange={ (event) => this.replyHandleChange(event, i)} />
+              <button onClick={() => this.handleAddreply(i)}> Reply </button>
+            </li>
+          </ul>
         </li>
       )
     }, this)
