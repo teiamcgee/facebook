@@ -1,0 +1,16 @@
+body {
+  padding: 0;
+  font-family: sans-serif;
+  background-image: url(https://images.pexels.com/photos/298217/pexels-photo-298217.jpeg?w=940&h=650&auto=compress&cs=tinysrgb);
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+div{
+  height: 600px;
+  width: 600px;
+  background-color: rgba(230, 200, 183, 0.76);
+  margin: 0 auto;
+  padding-top: 50px;
+}
