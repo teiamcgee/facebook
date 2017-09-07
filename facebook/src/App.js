@@ -26,7 +26,7 @@ this.setState({
 replyHandleChange(event, i){
   const CopyofState = Object.assign({}, this.state);
   const comment = CopyofState.text[i];
-  comment.text[index].input = event.target.value
+  comment.text[i].input = event.target.value
   this.setState({
     CopyofState,
   })
@@ -100,7 +100,7 @@ thumbsDown(i){
           <button  onClick={() => this.thumbsDown(i)}>DisLike {comment.thumbsDown} </button>
           <ul>
             <li key={i}>
-            <input type="text" value={this.state.text[index].input}  onChange={ (event) => this.replyHandleChange(event, i)} />
+            <input type="text" value={this.state.text[i].input}  onChange={ (event) => this.replyHandleChange(event, i)} />
               <button onClick={() => this.handleAddreply(i)}> Reply </button>
             </li>
           </ul>
